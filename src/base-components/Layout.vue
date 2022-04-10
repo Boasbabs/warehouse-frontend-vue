@@ -1,6 +1,6 @@
 <template>
   <c-box minH="100vh" bg="gray.100">
-    <c-box bg="white" pos="fixed" h="full" min-w="15rem">
+    <c-box bg="white" pos="fixed" display="block" h="full" min-w="15rem">
       <c-flex h="20" align="center" mx="8" justify="space-between">
         <c-text  fontSize="2xl" fontWeight="light">
           Warehouse
@@ -35,7 +35,7 @@
         Warehouse
       </c-text>
     </c-flex>
-    <c-box ml="60" p="4" pb="50">
+    <c-box :ml="'15rem'" p="4" pb="50">
       <slot name="main"> </slot>
     </c-box>
   </c-box>
