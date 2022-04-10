@@ -1,17 +1,19 @@
 <template>
   <c-box maxW="full" mt="0" justify="center" align="center" overflow="hidden">
-    <c-heading as="h3" size="lg" fontWeight="light"> Add Articles </c-heading>
-    <c-text color="gray.600" fontSize="xl" mb="6">
-      <c-button
-        as="router-link"
-        to="/articles"
-        colorScheme="blackAlpha"
-        variant="link"
-        size="sm"
-      >
-        &#8592; Back to Articles
-      </c-button>
-    </c-text>
+    <c-stack w="3xl" spacing="6" mb="6">
+      <c-heading as="h3" size="lg" fontWeight="light"> Add Articles </c-heading>
+      <c-text color="gray.600" fontSize="xl" >
+        <c-button
+          as="router-link"
+          to="/articles"
+          variant-color="gray"
+          variant="link"
+          size="sm"
+        >
+          &#8592; Back to Articles
+        </c-button>
+      </c-text>
+    </c-stack>
     <c-box
       w="400px"
       text-align="left"
@@ -90,7 +92,7 @@ export default {
     CText,
     CFormLabel,
     CBox,
-    CHeading,
+    CHeading
   }
 };
 </script>
