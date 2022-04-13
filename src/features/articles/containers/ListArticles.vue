@@ -51,10 +51,10 @@ export default {
     };
   },
   computed: mapState({
-    articles: (state) => state.articles
+    articles: (state) => state.articles.articles
   }),
   methods: {
-    ...mapActions(["getArticles"])
+    ...mapActions('articles',["getArticles"])
   },
   mounted() {
     this.getArticles();
