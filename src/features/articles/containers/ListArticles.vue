@@ -15,25 +15,21 @@
         </c-button>
       </c-text>
     </c-stack>
-    <c-list styleType="disc">
-      <c-list-item v-for="(item, index) in ToDoItems" :key="index">
-        {{ item.label }}
-        </c-list-item>
-    </c-list>
+    <vue-virtual-table :minWidth="1000" :config="tableConfig" :data="articles" >
+    </vue-virtual-table>
   </c-box>
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 import {
   CStack,
   CBox,
   CButton,
   CText,
   CHeading,
-
-  CList,
-  CListItem,
 } from "@chakra-ui/vue";
+import VueVirtualTable from "vue-virtual-table";
 
 export default {
   name: "ListArticles",
@@ -43,18 +39,25 @@ export default {
     CText,
     CBox,
     CHeading,
-    CList,
-    CListItem,
+    VueVirtualTable
   },
   data() {
     return {
-      ToDoItems: [
-        { label: "Learn Vue", done: false },
-        { label: "Create a Vue project with the CLI", done: true },
-        { label: "Have fun", done: true },
-        { label: "Create a to-do list", done: false }
+      tableConfig: [
+        { prop: '_index', name: '#' },
+        { prop: "name", name: "Article Name" },
+        { prop: "amountInStock", name: "Amount in Stock" }
       ]
     };
+  },
+  computed: mapState({
+    articles: (state) => state.articles
+  }),
+  methods: {
+    ...mapActions(["getArticles"])
+  },
+  mounted() {
+    this.getArticles();
   }
 };
 </script>
