@@ -15,7 +15,36 @@
         </c-button>
       </c-text>
     </c-stack>
-    <vue-virtual-table :minWidth="1000" :config="tableConfig" :data="articles" >
+    <vue-virtual-table :config="tableConfig" :data="articles">
+      <template slot-scope="scope" slot="actionCommon">
+        <c-button-group :spacing="4">
+          <c-button
+            variant-color="gray"
+            size="xs"
+            as="router-link"
+            :to="{
+              name: 'SingleArticle',
+              params: { articleId: scope.row.id },
+              props: {
+                details: {
+                  firstName: 'John',
+                  lastName: 'Snow'
+                }
+              }
+            }"
+          >
+            Edit
+          </c-button>
+          <c-button
+            variant="outline"
+            size="xs"
+            as="router-link"
+            :to="{ name: 'SingleArticle', params: { articleId: scope.row.id } }"
+          >
+            Delete
+          </c-button>
+        </c-button-group>
+      </template>
     </vue-virtual-table>
   </c-box>
 </template>
@@ -26,8 +55,9 @@ import {
   CStack,
   CBox,
   CButton,
+  CButtonGroup,
   CText,
-  CHeading,
+  CHeading
 } from "@chakra-ui/vue";
 import VueVirtualTable from "vue-virtual-table";
 
@@ -39,14 +69,16 @@ export default {
     CText,
     CBox,
     CHeading,
+    CButtonGroup,
     VueVirtualTable
   },
   data() {
     return {
       tableConfig: [
-        { prop: '_index', name: '#' },
+        { prop: "_index", name: "#" },
         { prop: "name", name: "Article Name" },
-        { prop: "amountInStock", name: "Amount in Stock" }
+        { prop: "amountInStock", name: "Amount in Stock" },
+        { prop: "_action", name: "Action", actionName: "actionCommon" }
       ]
     };
   },
@@ -54,7 +86,10 @@ export default {
     articles: (state) => state.articles.articles
   }),
   methods: {
-    ...mapActions('articles',["getArticles"])
+    ...mapActions("articles", ["getArticles"]),
+    handleSelectionChange(rows) {
+      console.log(rows);
+    }
   },
   mounted() {
     this.getArticles();
